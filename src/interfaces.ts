@@ -16,4 +16,5 @@ export interface IPostsContext {
   page: number;
   setPage: (page: number) => void;
   setVariant: (variant: "original" | "alphabetical") => void;
+  allPosts: IPost[];
 }

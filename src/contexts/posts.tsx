@@ -22,6 +22,7 @@ async function handlePosts(
     return {
       data: records,
       numbers,
+      allPosts: data,
     };
   } else {
     const response = await axios.get(url);
@@ -44,6 +45,7 @@ async function handlePosts(
     return {
       data: records,
       numbers,
+      allPosts: data,
     };
   }
 }
@@ -57,6 +59,7 @@ export const PostsContext = createContext<IPostsContext>({
   page: 1,
   setPage: () => {},
   setVariant: () => {},
+  allPosts: [],
 });
 
 export default function PostsContextProvider({
@@ -70,12 +73,14 @@ export default function PostsContextProvider({
   const [variant, setVariant] = useState<"original" | "alphabetical">(
     "original"
   );
+  const [allPosts, setAllPosts] = useState<IPost[]>([]);
 
   useEffect(() => {
     setIsLoading(true);
     handlePosts(page, variant)
       .then((r) => {
         setPostObject(r);
+        setAllPosts(r.allPosts);
         setIsLoading(false);
       })
       .catch((e) => console.log(e));
@@ -87,6 +92,7 @@ export default function PostsContextProvider({
     page,
     setPage,
     setVariant,
+    allPosts,
   };
 
   return (

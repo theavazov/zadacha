@@ -5,9 +5,13 @@ import { IPost } from "../interfaces";
 export function Table({
   posts,
   setVariant,
+  search,
+  allPosts,
 }: {
   posts: IPost[];
   setVariant: (variant: "original" | "alphabetical") => void;
+  search: string;
+  allPosts: IPost[];
 }) {
   const [isPopup, setIsPopup] = useState<boolean>(false);
 
@@ -51,17 +55,37 @@ export function Table({
         </tr>
       </thead>
       {posts ? (
-        <tbody>
-          {posts.map((post, idx) => {
-            return (
-              <tr key={idx}>
-                <td>{post.id}</td>
-                <td>{post.title}</td>
-                <td>{post.body}</td>
-              </tr>
-            );
-          })}
-        </tbody>
+        search.length >= 1 ? (
+          <tbody>
+            {allPosts
+              .filter((post) => {
+                return search.toLowerCase() === ""
+                  ? post
+                  : post.title.toLowerCase().includes(search);
+              })
+              .map((post, idx) => {
+                return (
+                  <tr key={idx}>
+                    <td>{post.id}</td>
+                    <td>{post.title}</td>
+                    <td>{post.body}</td>
+                  </tr>
+                );
+              })}
+          </tbody>
+        ) : (
+          <tbody>
+            {posts.map((post, idx) => {
+              return (
+                <tr key={idx}>
+                  <td>{post.id}</td>
+                  <td>{post.title}</td>
+                  <td>{post.body}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        )
       ) : null}
     </table>
   );

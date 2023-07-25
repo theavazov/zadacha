@@ -217,6 +217,7 @@ button:focus {
   border-bottom: 1px solid #e3e6ec;
   transition: 0.3s;
   background-color: var(--white);
+  color: var(--grayscale);
 }
 
 .popup-btn:hover {
@@ -225,6 +226,42 @@ button:focus {
 
 .popup-btn:last-child {
   border-bottom: none;
+}
+
+/* === FORM === */
+.form {
+  display: flex;
+  align-items: center;
+  background-color: #5a5c66;
+  max-width: 630px;
+  width: 100%;
+}
+
+.form input {
+  flex: 1 1 auto;
+  background-color: unset;
+  border: none;
+  color: var(--white);
+  font-size: 14px;
+  line-height: 20px;
+  padding: 18px 26px 15px 26px;
+}
+
+.form input::placeholder {
+  color: #b2b7bf;
+}
+
+.form button {
+  display: grid;
+  place-items: center;
+  padding: 15px 24px;
+  height: 100%;
+  color: var(--white);
+}
+
+.form button svg {
+  width: 21px;
+  height: 21px;
 }
 
 @media (max-width: 880px) {
